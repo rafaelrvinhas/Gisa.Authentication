@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 7163
+          "Port": 44305
         }
       ],
       "UpstreamPathTemplate": "/gateway/autenticacao/usuario/novo",

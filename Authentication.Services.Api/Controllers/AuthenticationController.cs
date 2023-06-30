@@ -10,6 +10,7 @@ using Authentication.Domain.Models;
 using Authentication.Application.ViewModels;
 using Authentication.Application.Interfaces;
 using Authentication.Domain.Core.Bus;
+using System.ComponentModel.DataAnnotations;
 
 namespace Authentication.Services.Api.Controllers
 {
@@ -36,7 +37,7 @@ namespace Authentication.Services.Api.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> Login(UserLogin login)
+        public async Task<IActionResult> Login([Required][FromBody]UserLogin login)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +85,12 @@ namespace Authentication.Services.Api.Controllers
                 return BadRequest("Associado não encontrado.");
             }
 
-            var user = new Account(userRegistration.Email, userRegistration.Email, true, userRegistration.DocumentNumber);
+            var user = new Account(
+                userRegistration.Email, 
+                userRegistration.Email, 
+                true, 
+                userRegistration.DocumentNumber, 
+                (int)userRegistration.UserType);
 
             var result = await _userManager.CreateAsync(user, userRegistration.Password);
 
